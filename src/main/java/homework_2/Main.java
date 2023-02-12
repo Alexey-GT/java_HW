@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //ex1();
-        ex2();
+        ex1();
+        //ex2();
     }
 
     private static void ex1() {

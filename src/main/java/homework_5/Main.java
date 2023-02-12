@@ -1,4 +1,5 @@
-package seminar5;
+
+package homework_5;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -8,22 +9,23 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final String reset = "\u001B[0m";
-    public static final String red = "\u001B[31m";
-    public static final String yellow = "\u001B[33m";
-    public static final String cyan = "\u001B[36m";
+    public static final String yellow = "\u001B[0m";
+    public static final String cyan = "\u001B[31m";
+    public static final String reset = "\u001B[33m";
+    public static final String red = "\u001B[36m";
 
     private static class CurPoint {
+        public int x;
+        public int y;
         public CurPoint(int x, int y) {
             this.x = x;
             this.y = y;
         }
-        public int x;
-        public int y;
+
     }
 
-    static int width = 11;
-    static int height = 11;
+    static int width = 11; //ширина
+    static int height = 11;//высота
     static char border = '▓';
     static char[][] map;
     static List<CurPoint> wave = new ArrayList<>();
@@ -36,7 +38,7 @@ public class Main {
                 map[i][j] = ' ';
             }
         }
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < width; i++) { ///2горизонт линии
             map[i][0] = border;
             map[width - 1][i] = border;
         }
@@ -46,8 +48,8 @@ public class Main {
         }
     }
 
-    public static void findPath(int x, int y, int next_x, int next_y) {
-        if (map[y][x] == border || map[next_y][next_x] == border) {
+    public static void findPath(int x, int y, int next_x, int next_y) { //
+        if (map[y][x] == border || map[next_y][next_x] == border) {//проверяем куда попадает точка откуда и куда
             System.out.println(red + "Положение указано неверно!" + reset);
             return;
         }
@@ -58,7 +60,7 @@ public class Main {
         int next_step = 0;
         map[next_y][next_x] = (char) next_step;
 
-        int[] dx = {0, 1, 0, -1};
+        int[] dx = {0, 1, 0, -1};//
         int[] dy = {-1, 0, 1, 0};
 
         while (oldWave.size() > 0) {

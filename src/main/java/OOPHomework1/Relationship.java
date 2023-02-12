@@ -1,2 +1,4 @@
-package OOPHomework1;public class Relationship {
+package OOPHomework1;
+
+public class Relationship {
 }

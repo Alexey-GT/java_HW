@@ -1,2 +1,4 @@
-package OOPHomework1;public class Main {
+package OOPHomework1;
+
+public class Main {
 }
