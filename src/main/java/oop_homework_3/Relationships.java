@@ -1,27 +1,42 @@
-package oop_homework_2;
+package oop_homework_3;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Relationships implements Metods {
+public class Relationships implements FamilyTree {
 
-    public static HashMap<String, Person> persons = new HashMap<>();  // Хранение всех людей из дерева
+    /**
+     * Список представителей генеалогического дерева, где ключом является имя
+     */
+    public static HashMap<String, Person> persons = new HashMap<>();
 
-    public HashMap<Person, ArrayList<Person>> parents = new HashMap();  // Список родителей по ключам дети
+    /**
+     * Список родителей, где ключами доступа являются имена детей
+     */
+    public HashMap<Person, ArrayList<Person>> parents = new HashMap();
 
-    public HashMap<Person, ArrayList<Person>> children = new HashMap(); //Список детей по ключам родители
+    /**
+     * Список детей, где ключами доступа являются имена родителей
+     */
+    public HashMap<Person, ArrayList<Person>> children = new HashMap();
 
-
+    /**
+     * Добавления людей (экземпляров класса)в список person по имени человека и полу,
+     * где ключ-имя человека
+     *
+     * @param name   имя человека
+     * @param gender пол
+     */
     public void newPerson(String name, String gender) {
         persons.put(name, new Person(name, gender));
     }
 
-    @Override    // Возвращает список экземпляров детей из общего списка persons
+    @Override
     public ArrayList<Person> getChildren(String name) {
         return children.get(persons.get(name));
     }
 
-    @Override   // Поиск детей у родителя и вывод их в консоль
+    @Override
     public void showChildren(String name) {
         System.out.print(name + " его/ее дети: ");
         for (int i = 0; i < getChildren(name).size(); i++) {
@@ -30,12 +45,12 @@ public class Relationships implements Metods {
         System.out.println();
     }
 
-    @Override   // Возвращает список экземпляров родителей, в списке экземпляры класса Person
+    @Override
     public ArrayList<Person> getParents(String name) {
         return parents.get(persons.get(name));
     }
 
-    @Override  // Выводит список родителей в консоль
+    @Override
     public void showParents(String name) {
         System.out.print(name + " его/ее родители: ");
         for (int i = 0; i < getParents(name).size(); i++) {
@@ -44,7 +59,7 @@ public class Relationships implements Metods {
         System.out.println();
     }
 
-    @Override  // Создает пару муж-жена
+    @Override
     public void wedding(Person husband1, Person husband2) {
         if (!husband1.getGender().equalsIgnoreCase(husband2.getGender())) {
             husband1.setHusband(husband2);
@@ -52,9 +67,7 @@ public class Relationships implements Metods {
         }
     }
 
-
-    @Override //заполнение HashMap <Person,ArrayList<Person>> parents и children
-    // Создаем связь ребенок - родители и родитель - дети
+    @Override
     public void makeParent(Person parent, Person child) {
         if (parents.containsKey(child)) {
             if (!parents.get(child).contains(parent)) {
@@ -75,14 +88,11 @@ public class Relationships implements Metods {
         }
     }
 
-    @Override  // Создает связь родитель - ребенок и ребенок - родитель, проверяет наличие супруга,
-    // при наличии автоматически создает связи ребенка с ним
-    public void birth(Person parent, Person child) {  //
+    @Override
+    public void birth(Person parent, Person child) {
         makeParent(parent, child);
         if (parent.getHusband() != null) {
             makeParent(parent.getHusband(), child);
         }
     }
-
-
 }
